@@ -2081,6 +2081,3 @@ const adjList = [
         ]
     },
 ];
-
-let a = knightMoves(adjList, visitedArray, [4,3], [6,7])
-console.log(a);
