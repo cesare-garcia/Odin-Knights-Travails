@@ -9,7 +9,7 @@ const boardCreation = () => {
         for (let i = 0; i < 8; i++) {
             let boardTile = document.createElement("div");
             boardTile.classList.add("tile");
-            boardTile.setAttribute("id", `[${i},${columnNumber}]`);
+            boardTile.setAttribute("id", `${i},${columnNumber}`);
             (i % 2 == 0) ? boardTile.classList.add(`${secondColor}`) : boardTile.classList.add(`${firstColor}`);
             board.appendChild(boardTile); 
         }
