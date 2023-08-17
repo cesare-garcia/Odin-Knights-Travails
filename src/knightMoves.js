@@ -2,7 +2,10 @@ import compareArrays from "./compareArrays";
 
 const knightMoves = (adjList, visits, startingCoordArray, targetCoordArray) => {
 
-    if (startingCoordArray.length !== 2 || targetCoordArray.length !== 2) return "You must provide coordinates with only two dimensions [x,y] as arguments.";
+    if (compareArrays(startingCoordArray, targetCoordArray)) {
+        let errorMSG = "You cannot select the same tile as the starting and target tile.";
+        return errorMSG;
+    }
 
     // navigate through the adjList to starting coordinate
 
