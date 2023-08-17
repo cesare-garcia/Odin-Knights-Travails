@@ -21,13 +21,17 @@ body {
     box-shadow: 3px 3px 2px;
 }
 
-.blackTile {
+.tile:hover {
+    background-color: yellow;
+}
+
+.black {
     background-color: black;
     height: 100px;
     width: 100px;
 }
 
-.whiteTile {
+.white {
     background-color: white;
     height: 100px;
     width: 100px;
