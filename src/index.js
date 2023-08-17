@@ -1,14 +1,28 @@
 import './style.css';
+import uiCreation from './uiCreation';
 import boardCreation from "./boardCreation";
 import compareArrays from './compareArrays';
 import knightMoves from './knightMoves';
+import { stringify } from 'json5';
+import KnightOne from './futuristicChessKnight1.png';
+import KnightTwo from './futuristicChessKnight2.png';
+
 
 const content = document.querySelector("#content");
-const boardContainer = document.createElement("div");
-boardContainer.classList.add("boardContainer");
-content.appendChild(boardContainer);
-let gameBoard = boardCreation();
-boardContainer.appendChild(gameBoard);
+// ui creation
+uiCreation(content);
+
+let startingCoordinates = "";
+let startStatus = false;
+let targetCoordinates = "";
+let targetStatus = false;
+
+const manualKnight = new Image(49,49);
+manualKnight.classList.add("knight");
+manualKnight.src = KnightOne;
+const randomKnight = new Image(49,49);
+randomKnight.classList.add("knight");
+randomKnight.src = KnightTwo;
 
 let visitedArray = [];
 for (let i = 0; i < 64; i++) {
@@ -2081,3 +2095,36 @@ const adjList = [
         ]
     },
 ];
+
+let tiles = document.querySelectorAll(".tile");
+tiles.forEach(tile => tile.addEventListener("click", (e) => {
+    if (e.target) {
+        if (!startStatus) {
+            startingCoordinates = e.target.id.split(",");
+            startingCoordinates[0] = Number(startingCoordinates[0])
+            startingCoordinates[1] = Number(startingCoordinates[1])
+            startStatus = true;
+            console.log(startingCoordinates);
+        } else {
+            targetCoordinates = e.target.id.split(",");
+            targetCoordinates[0] = Number(targetCoordinates[0])
+            targetCoordinates[1] = Number(targetCoordinates[1])
+            targetStatus = true;
+            console.log(targetCoordinates);
+            let a = knightMoves(adjList, visitedArray, startingCoordinates, targetCoordinates);
+            console.log(a);
+            if (typeof a !== "string") {
+                startingCoordinates = targetCoordinates;
+                targetCoordinates = "";
+                targetStatus = false;
+                for (let i = 0; i < 64; i++) {
+                    visitedArray[i] = false;
+                };    
+            } else {
+                // print the error msg to page
+                targetCoordinates = "";
+                targetStatus = false;
+            }
+        }
+    }
+}));
