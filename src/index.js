@@ -3,7 +3,6 @@ import uiCreation from './uiCreation';
 import boardCreation from "./boardCreation";
 import compareArrays from './compareArrays';
 import knightMoves from './knightMoves';
-import { stringify } from 'json5';
 import KnightOne from './futuristicChessKnight1.png';
 import KnightTwo from './futuristicChessKnight2.png';
 
