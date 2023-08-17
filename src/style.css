@@ -8,36 +8,92 @@ body {
     height: 100vh;
 }
 
+h1,
+button {
+    font-family: "MedievalSharp-Regular";
+}
+
+h1 {
+    font-size: 40px;
+    margin-bottom: 0;
+}
+
+button {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
 #content {
+    padding-top: 10px;
     height: inherit;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    background-color: rgb(42, 47, 204);
+    flex-shrink: 0;
+}
+
+.leftHalf,
+.rightHalf {
+    display: flex;
     justify-content: center;
-    background-color: antiquewhite;
+    flex-shrink: 0;
+    min-height: 640px;
+    align-items: center;
+}
+
+.leftHalf {
+    min-width: 30vw;
+}
+
+.rightHalf {
+    min-width: 50vw;
+    background-image: url(/src/techRuinsInRainforest.png);
+}
+
+.knight {
+    border-radius: 100%;
+}
+
+.elementsContainer {
+    height: max-content;
+    background-color: white;
+    border: solid;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: max-content;
+}
+
+.boardContainer {
+    width: max-content;
 }
 
 .gameBoard {
     display: grid;
-    grid-template-columns: repeat(8, 100px);
-    grid-template-rows: repeat(8, 100px);
+    grid-template-columns: repeat(8, 65px);
+    grid-template-rows: repeat(8, 65px);
     border: solid;
-    border-color: brown;
+    border-color: rgb(126, 125, 125);
     border-width: 5px;
-    box-shadow: 3px 3px 2px;
+    box-shadow: 3px 3px 4px rgb(50, 49, 49);
 }
 
 .tile:hover {
     background-color: yellow;
 }
 
-.black {
-    background-color: black;
-    height: 100px;
-    width: 100px;
+.black,
+.white {
+    height: 65px;
+    width: 65px;
 }
 
 .white {
     background-color: white;
-    height: 100px;
-    width: 100px;
+}
+
+.black {
+    background-color: black;
 }
