@@ -3,7 +3,8 @@ import compareArrays from "./compareArrays";
 const knightMoves = (adjList, visits, startingCoordArray, targetCoordArray) => {
 
     if (compareArrays(startingCoordArray, targetCoordArray)) {
-        let errorMSG = "You cannot select the same tile as the starting and target tile.";
+        let errorMSG = `You cannot select the same tile as the starting 
+        and target tile.`;
         return errorMSG;
     }
 
