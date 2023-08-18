@@ -24,9 +24,16 @@ const uiCreation = (contentDiv) => {
 
     for (let i = 0; i < 3; i++) {
         let createdButton = document.createElement("button");
-        if (i === 0) createdButton.innerText = "Place Knight Randomly";
-        if (i === 1) createdButton.innerText = "Choose Random Target";
-        if (i === 2) createdButton.innerText = "Clear";
+        if (i === 0) {
+            createdButton.innerText = "Place Knight Randomly";
+            createdButton.classList.add("randomKnight");
+        } else if (i === 1) {
+            createdButton.innerText = "Choose Random Target";
+            createdButton.classList.add("randomTarget");
+        } else {
+            createdButton.innerText = "Clear";
+            createdButton.classList.add("clear");
+        } 
         elementsContainer.appendChild(createdButton);
     }
     
