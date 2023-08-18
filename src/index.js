@@ -2109,76 +2109,81 @@ tiles.forEach(tile => tile.addEventListener("click", (e) => {
             gameMessage.innerText = "Now select a target tile!"    
 
         } else {
-            let checkTiles = document.querySelectorAll(".tile");
-            for (let i = 0; i < checkTiles.length; i++) {
-                if (checkTiles[i].hasChildNodes() && !checkTiles[i].firstChild.classList.contains("mknight")) {
-                    let removedCircle = checkTiles[i].firstChild;
-                    checkTiles[i].removeChild(removedCircle);    
-                }
-            }
-
-            targetCoordinates = e.target.id.split("_");
-            targetCoordinates = targetCoordinates[1].split("-");
-            targetCoordinates[0] = Number(targetCoordinates[0])
-            targetCoordinates[1] = Number(targetCoordinates[1])
-            targetStatus = true;
-            let knightInformation = knightMoves(adjList, visitedArray, startingCoordinates, targetCoordinates);
-            console.log(knightInformation);
-            if (typeof a !== "string") {
-                // set red circles at each tile coordinate
-
+            if (e.target.classList.contains("mknight")) {
                 let gameMessage = document.querySelector(".gameMessage");
-                gameMessage.innerText = `You made the jump in ${knightInformation.numberOfSteps} steps. This was
-                your path: `
-                for (let i = knightInformation.goldenPath.length-1; i >= 0; i--) {
-                    gameMessage.innerText += `
-                    -> [${knightInformation.goldenPath[i]}]`;
-                }
+                gameMessage.innerText = `You cannot select the same tile as the starting 
+                and target tile.`;    
     
-                let stepCounter = 1;
-                for (let i = knightInformation.goldenPath.length-1; i >= 1; i--) {
-                    
-                    if (i == knightInformation.goldenPath.length-1) {
-                        let startCircle = document.createElement("div");
-                        startCircle.classList.add("start");
-                        let startText = document.createElement("p");
-                        startText.innerText = "Start";
-                        startCircle.appendChild(startText);
-                        let rawCoordinateInfo = knightInformation.goldenPath[knightInformation.goldenPath.length-1];
-                        let coordinateString = `#a_${rawCoordinateInfo[0]}-${rawCoordinateInfo[1]}`;
-                        let startCircleElement = document.querySelector(coordinateString);
-                        startCircleElement.appendChild(startCircle);    
-
-                    } else {
-                        let pathCircle = document.createElement("div");
-                        pathCircle.classList.add("circle");
-                        let stepText = document.createElement("p");
-                        stepText.classList.add("step");
-                        stepText.innerText = `${stepCounter}`;
-                        pathCircle.appendChild(stepText);
-                        stepCounter+= 1;
-                        let rawCoordinateInfo = knightInformation.goldenPath[i];
-                        let coordinateString = `#a_${rawCoordinateInfo[0]}-${rawCoordinateInfo[1]}`;
-                        let intermediateCircle = document.querySelector(coordinateString);
-                        intermediateCircle.appendChild(pathCircle);    
+            } else {
+                let checkTiles = document.querySelectorAll(".tile");
+                for (let i = 0; i < checkTiles.length; i++) {
+                    if (checkTiles[i].hasChildNodes() && !checkTiles[i].firstChild.classList.contains("mknight")) {
+                        let removedCircle = checkTiles[i].firstChild;
+                        checkTiles[i].removeChild(removedCircle);    
                     }
                 }
-
-                startTileElement.removeChild(manualKnight);
-                targetTileElement = e.target;
-                targetTileElement.appendChild(manualKnight);
-                startingCoordinates = targetCoordinates;
-                targetCoordinates = "";
-                targetStatus = false;
-                for (let i = 0; i < 64; i++) {
-                    visitedArray[i] = false;
-                };
-                startTileElement = targetTileElement;    
-            } else {
-                let gameMessage = document.querySelector(".gameMessage");
-                gameMessage.innerText = `${knightInformation}`;        
-                targetCoordinates = "";
-                targetStatus = false;
+    
+                targetCoordinates = e.target.id.split("_");
+                targetCoordinates = targetCoordinates[1].split("-");
+                targetCoordinates[0] = Number(targetCoordinates[0]);
+                targetCoordinates[1] = Number(targetCoordinates[1]);
+                targetStatus = true;
+                let knightInformation = knightMoves(adjList, visitedArray, startingCoordinates, targetCoordinates);
+                if (typeof knightInformation !== "string") {
+    
+                    let gameMessage = document.querySelector(".gameMessage");
+                    gameMessage.innerText = `You made the jump in ${knightInformation.numberOfSteps} steps. This was
+                    your path: `
+                    for (let i = knightInformation.goldenPath.length-1; i >= 0; i--) {
+                        gameMessage.innerText += `
+                        -> [${knightInformation.goldenPath[i]}]`;
+                    }
+        
+                    let stepCounter = 1;
+                    for (let i = knightInformation.goldenPath.length-1; i >= 1; i--) {
+                        
+                        if (i == knightInformation.goldenPath.length-1) {
+                            let startCircle = document.createElement("div");
+                            startCircle.classList.add("start");
+                            let startText = document.createElement("p");
+                            startText.innerText = "Start";
+                            startCircle.appendChild(startText);
+                            let rawCoordinateInfo = knightInformation.goldenPath[knightInformation.goldenPath.length-1];
+                            let coordinateString = `#a_${rawCoordinateInfo[0]}-${rawCoordinateInfo[1]}`;
+                            let startCircleElement = document.querySelector(coordinateString);
+                            startCircleElement.appendChild(startCircle);    
+    
+                        } else {
+                            let pathCircle = document.createElement("div");
+                            pathCircle.classList.add("circle");
+                            let stepText = document.createElement("p");
+                            stepText.classList.add("step");
+                            stepText.innerText = `${stepCounter}`;
+                            pathCircle.appendChild(stepText);
+                            stepCounter+= 1;
+                            let rawCoordinateInfo = knightInformation.goldenPath[i];
+                            let coordinateString = `#a_${rawCoordinateInfo[0]}-${rawCoordinateInfo[1]}`;
+                            let intermediateCircle = document.querySelector(coordinateString);
+                            intermediateCircle.appendChild(pathCircle);    
+                        }
+                    }
+    
+                    startTileElement.removeChild(manualKnight);
+                    targetTileElement = e.target;
+                    targetTileElement.appendChild(manualKnight);
+                    startingCoordinates = targetCoordinates;
+                    targetCoordinates = "";
+                    targetStatus = false;
+                    for (let i = 0; i < 64; i++) {
+                        visitedArray[i] = false;
+                    };
+                    startTileElement = targetTileElement;    
+                } else {
+                    let gameMessage = document.querySelector(".gameMessage");
+                    gameMessage.innerText = `${knightInformation}`;        
+                    targetCoordinates = "";
+                    targetStatus = false;
+                }    
             }
         }
     }
@@ -2224,7 +2229,7 @@ rtButton.addEventListener("click", (e) => {
         let gameMessage = document.querySelector(".gameMessage");
         gameMessage.innerText = "You must first select a starting tile!"
     } else {
-
+        
         let checkTiles = document.querySelectorAll(".tile");
         for (let i = 0; i < checkTiles.length; i++) {
             if (checkTiles[i].hasChildNodes() && !checkTiles[i].firstChild.classList.contains("mknight")) {
@@ -2235,9 +2240,8 @@ rtButton.addEventListener("click", (e) => {
 
         targetCoordinates = [Math.floor(Math.random() * 8), Math.floor(Math.random() * 8)];
         targetStatus = true;
-        console.log(targetCoordinates);
         let knightInformation = knightMoves(adjList, visitedArray, startingCoordinates, targetCoordinates);
-        if (typeof a !== "string") {
+        if (typeof knightInformation !== "string") {
             // set red circles at each tile coordinate
             let gameMessage = document.querySelector(".gameMessage");
             gameMessage.innerText = `You made the jump in ${knightInformation.numberOfSteps} steps. This was
@@ -2286,6 +2290,11 @@ rtButton.addEventListener("click", (e) => {
                 visitedArray[i] = false;
             };
             startTileElement = targetTileElement;    
-        }
+        } else {
+            let gameMessage = document.querySelector(".gameMessage");
+            gameMessage.innerText = `${knightInformation}`;        
+            targetCoordinates = "";
+            targetStatus = false;
+        }    
     }
 });
