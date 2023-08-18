@@ -18,9 +18,23 @@ const uiCreation = (contentDiv) => {
     projectTitle.innerText = "Knights Travails";
     elementsContainer.appendChild(projectTitle);
     const instructionsText = document.createElement("p");
-    instructionsText.innerText = "Choose an action.";
+    instructionsText.innerText = `
+    Welcome to Knights Travails, the application that will show you 
+    the shortest path between any two spaces on the chessboard for 
+    a knight. To set the knight's starting position, you can either 
+    click a space on the board using your mouse or press the "Place 
+    Knight Randomly" button. Placing the knight randomly will 
+    automatically clear the board for a new session. Setting the 
+    knight manually or randomly will allow you to immediately set
+    a target tile by either clicking on another space on the 
+    chessboard or pressing the "Choose Random Target" button.
+    Finally, you can clear the board by pressing the "Clear" button.`;
     instructionsText.classList.add("instructions");
     elementsContainer.appendChild(instructionsText);
+    const gameMessages = document.createElement("p");
+    gameMessages.classList.add("gameMessage");
+    elementsContainer.appendChild(gameMessages);
+    gameMessages.innerText = "Please Select A Starting Tile!"
 
     for (let i = 0; i < 3; i++) {
         let createdButton = document.createElement("button");
